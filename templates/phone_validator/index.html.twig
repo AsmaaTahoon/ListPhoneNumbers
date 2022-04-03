@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PhoneValidator index{% endblock %}
+
+{% block body %}
+    <h1>PhoneValidator index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CountryName</th>
+                <th>CountryCode</th>
+                <th>Regex</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for phone_validator in phone_validators %}
+            <tr>
+                <td>{{ phone_validator.id }}</td>
+                <td>{{ phone_validator.countryName }}</td>
+                <td>{{ phone_validator.countryCode }}</td>
+                <td>{{ phone_validator.regex }}</td>
+                <td>
+                    <a href="{{ path('app_phone_validator_show', {'id': phone_validator.id}) }}">show</a>
+                    <a href="{{ path('app_phone_validator_edit', {'id': phone_validator.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_phone_validator_new') }}">Create new</a>
+{% endblock %}

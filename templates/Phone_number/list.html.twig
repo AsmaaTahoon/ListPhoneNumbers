@@ -1,0 +1,25 @@
+<br>
+<table>
+    <tr>
+        {# sorting of properties based on query components #}
+        <th>{{ knp_pagination_sortable(pagination, 'Country name', 'p.countryName') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Country code', 'p.countryCode') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Phone', 'c.phone') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'State', 'c.state') }}</th>
+    </tr>
+
+    {# table body #}
+    {% for customer in pagination %}
+        <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <td>{{ customer.countryName }}</td>
+            <td>{{ customer.countryCode }}</td>
+            <td>{{ customer.phone }}</td>
+            <td> {% if customer.state == "1"%} OK {% else %} NOK {% endif %}</td>
+        </tr>
+    {% endfor %}
+</table>
+{# display navigation #}
+<br>
+<div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+</div>

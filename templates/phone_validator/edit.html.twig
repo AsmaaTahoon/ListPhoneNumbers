@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PhoneValidator{% endblock %}
+
+{% block body %}
+    <h1>Edit PhoneValidator</h1>
+
+    {{ include('phone_validator/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_phone_validator_index') }}">back to list</a>
+
+    {{ include('phone_validator/_delete_form.html.twig') }}
+{% endblock %}

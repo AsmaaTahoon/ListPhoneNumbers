@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        table {
+            width: 100%;
+        }
+        .navigation {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <select name="country" id="countryName">
+        <option value="">Select Country</option>
+        {% for country in countries %}
+            {% if parameters and parameters.country is defined and parameters.country == country.countryName %}
+                <option value="{{ country.countryName }}" selected>{{ country.countryName }}</option>
+            {% else %}
+                <option value="{{ country.countryName }}">{{ country.countryName }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+
+
+    <select name="state" id="state">
+        <option value="">Select State</option>
+        <option value="1" {% if parameters and parameters.state is defined and parameters.state == "1" %} selected {% endif %}>Valid</option>
+        <option value="0" {% if parameters and parameters.state is defined and parameters.state == "0" %} selected {% endif %}>Not Valid</option>
+    </select>
+
+
+    {% include 'Phone_number/list.html.twig' with {'pagination' : pagination} %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <script>
+
+      $(document).ready(function(){
+
+        var urlTo = "/phonenumbers?";
+        $("#countryName").on("change", function () {
+          console.log(getParameters());
+          window.location.href = urlTo+getParameters();
+        });
+
+        $("#state").on("change", function () {
+          console.log(getParameters());
+          window.location.href = urlTo+getParameters();
+        });
+
+        function getParameters() {
+          var parameters = "";
+          if ($("#countryName").val()) {
+            parameters = parameters+"country="+$("#countryName").val();
+          }
+          if ($("#state").val()) {
+            if ($("#countryName").val()) {
+              parameters = parameters+"&";
+            }
+            parameters = parameters+"state="+$("#state").val();
+          }
+
+          return parameters;
+        }
+      });
+    </script>
+{% endblock %}
