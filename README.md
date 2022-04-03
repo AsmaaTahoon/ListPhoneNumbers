@@ -7,7 +7,7 @@ this project uses PHP 7.3 and Symfony 4.
 In this document we'll describe how did I think while coding.
 
 ### steps to start the project
-#### using sample.db you sent in the exercise with extra data
+#### using sample.db you sent in the exercise but updated with extra data
  - install sqlite 3 `sudo apt install sqlite3`
  - Run `composer install`
  - Run `symfony server:start`
