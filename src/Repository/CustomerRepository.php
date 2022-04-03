@@ -56,6 +56,7 @@ class CustomerRepository extends ServiceEntityRepository
     {
       $qb = $this->createQueryBuilder('c');
       $query = $qb->select(
+        'c.id',
         'c.phone',
         'c.state',
         'c.name',

@@ -30,19 +30,20 @@ class SetCustomerPhoneStateCommand extends Command
 
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
-    $customers = $this->customerRepository->findCustomersPhoneNumbers();
+    $customersQuery = $this->customerRepository->findCustomersPhoneNumbers();
+    $customers = $customersQuery->getQuery()->execute();
     foreach ($customers as $customer) {
       $phoneRegex = $customer['regex'];
-      var_dump($customer['phone']);
       $isValidPhoneNumber = preg_match(sprintf('/%s/', $phoneRegex), $customer['phone']);
-      var_dump($isValidPhoneNumber);
       /** @var Customer $customerObject */
       $customerObject = $this->customerRepository->find($customer['id']);
       $customerObject->setState($isValidPhoneNumber);
       $this->entityManager->persist($customerObject);
-      var_dump($customerObject);
+      $output->writeln(sprintf('<info> [%s] </info> <comment>[%s]</comment>', $customer['phone'], $isValidPhoneNumber));
     }
     $this->entityManager->flush();
+
+    $output->writeln('### FINISHED ###');
     return 0;
   }
 
